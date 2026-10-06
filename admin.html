@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - Women Safety Management</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Admin Dashboard</h1>
+    <nav>
+      <a href="#reports">User Reports</a>
+      <a href="#logout" onclick="logout()">Logout</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Reports Section -->
+    <section id="reports" class="section">
+      <h2>User Submitted Reports</h2>
+      <table border="1" width="100%" cellpadding="10">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Incident</th>
+          </tr>
+        </thead>
+        <tbody id="reportTable"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Women Safety Management System</p>
+  </footer>
+
+  <script>
+    // Load reports from localStorage
+    let reports = JSON.parse(localStorage.getItem("reports")) || [];
+    let table = document.getElementById("reportTable");
+
+    if(reports.length === 0){
+      table.innerHTML = "<tr><td colspan='3'>No reports submitted yet</td></tr>";
+    } else {
+      reports.forEach(r => {
+        let row = `<tr>
+                    <td>${r.date}</td>
+                    <td>${r.location}</td>
+                    <td>${r.incident}</td>
+                  </tr>`;
+        table.innerHTML += row;
+      });
+    }
+
+    function logout() {
+      alert("You have been logged out.");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
